@@ -5,6 +5,8 @@ metadata:
   namespace: skala3-ai1
   annotations:
     kubernetes.io/ingress.class: public-nginx
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
 spec:
   ingressClassName: public-nginx  #  클래스 이름
   rules:
