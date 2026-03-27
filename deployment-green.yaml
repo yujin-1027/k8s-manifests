@@ -1,13 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: a3028-green            # 이름 다르게!
+  name: a3028-green             # 블루와 이름이 겹치지 않게!
+  namespace: skala3-ai1
 spec:
-  replicas: 3
+  replicas: 3                  # 똑같이 3개 띄웁니다
   selector:
     matchLabels:
       app: a3028-zero-dtd-test
-      version: 2.0.0           # [핵심] 버전 2.0.0
+      version: 2.0.0           # [핵심] 버전은 2.0.0 (Green)
   template:
     metadata:
       labels:
@@ -16,6 +17,9 @@ spec:
     spec:
       containers:
       - name: a3028-app
-        image: amdp-registry.skala-ai.com/skala26a-ai1/a3028-my-app:v2
+        image: amdp-registry.skala-ai.com/skala26a-ai1/a3028-my-app:v2 # 물결표(~~) 있는 버전
         ports:
         - containerPort: 8080
+      # [필수!] 이 부분이 있어야 '빙글빙글' 로딩이 멈추고 초록색 하트가 뜹니다.
+      imagePullSecrets:
+      - name: amdp-registry-secret

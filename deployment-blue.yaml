@@ -1,13 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: a3028-blue             # 이름 다르게!
+  name: a3028-blue
+  namespace: skala3-ai1
 spec:
-  replicas: 3                  # 그림처럼 3개 띄워봅시다
+  replicas: 3
   selector:
     matchLabels:
       app: a3028-zero-dtd-test
-      version: 1.0.0           # [핵심] 버전 1.0.0
+      version: 1.0.0
   template:
     metadata:
       labels:
@@ -19,3 +20,6 @@ spec:
         image: amdp-registry.skala-ai.com/skala26a-ai1/a3028-my-app:latest
         ports:
         - containerPort: 8080
+      # [필수 추가!] 이 부분이 없으면 이미지를 못 가져와서 계속 로딩만 돕니다.
+      imagePullSecrets:
+      - name: amdp-registry-secret
