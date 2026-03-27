@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: a3028-blue             # 이름 다르게!
+spec:
+  replicas: 3                  # 그림처럼 3개 띄워봅시다
+  selector:
+    matchLabels:
+      app: a3028-zero-dtd-test
+      version: 1.0.0           # [핵심] 버전 1.0.0
+  template:
+    metadata:
+      labels:
+        app: a3028-zero-dtd-test
+        version: 1.0.0
+    spec:
+      containers:
+      - name: app
+        image: <유진님의 V1 이미지 주소>
+        ports:
+        - containerPort: 8080
