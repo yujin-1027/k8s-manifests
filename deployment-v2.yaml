@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: a3028-app-deploy-v2   # [수정 1] 이름 중복 안되게 v2 추가
+  namespace: skala3-ai1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: a3028-app-v2       # [수정 2] v2용 라벨로 구분
+  template:
+    metadata:
+      labels:
+        app: a3028-app-v2     # [수정 3] v2용 라벨로 구분
+    spec:
+      imagePullSecrets:
+      - name: harbor-pull-secret
+      containers:
+      - name: ai-container
+        # [수정 4] 유진님이 새로 빌드해서 올린 v2 이미지 태그 사용!
+        image: amdp-registry.skala-ai.com/skala26a-ai1/a3028-my-app:v2 
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: storage-volume
+          mountPath: /var/log/app
+      volumes:
+      - name: storage-volume
+        persistentVolumeClaim:
+          claimName: sk3028-my-pvc
