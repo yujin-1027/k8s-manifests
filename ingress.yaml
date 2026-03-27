@@ -6,7 +6,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: public-nginx
 spec:
-  ingressClassName: public-nginx  # <--- 요청하신 클래스 이름
+  ingressClassName: public-nginx  #  클래스 이름
   rules:
   - host: a3028.project.skala-ai.com  #  호스트 주소
     http:
