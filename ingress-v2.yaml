@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: a3028-app-ingress-canary # 이름이 v1과 달라야 함! (매우 중요)
+  namespace: skala3-ai1
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
+spec:
+  ingressClassName: public-nginx
+  rules:
+  - host: a3028.project.skala-ai.com # 위 v1과 호스트가 100% 똑같아야 함!
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: a3028-app-service-v2 # 아까 엔드포인트 잡힌 그 서비스!
+            port:
+              number: 8080

@@ -1,22 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: a3028-app-ingress-carnary
+  name: a3028-app-ingress        # 이름: v1 전용
   namespace: skala3-ai1
-  annotations:
-    kubernetes.io/ingress.class: public-nginx
-    nginx.ingress.kubernetes.io/canary: "true"
-    nginx.ingress.kubernetes.io/canary-weight: "10"
 spec:
-  ingressClassName: public-nginx  #  클래스 이름
+  ingressClassName: public-nginx
   rules:
-  - host: a3028.project.skala-ai.com  #  호스트 주소
+  - host: a3028.project.skala-ai.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: a3028-app-service-v2  # 서비스 이름
+            name: a3028-app-service   # 기존 v1 서비스 이름
             port:
-              number: 8080           # 서비스의 port 번호와 일치해야 함
+              number: 8080            # 포트 번호 확인!
