@@ -5,10 +5,13 @@ metadata:
   namespace: skala3-ai1
 spec:
   selector:
-    app: a3028-app
+    # [수정 포인트 1] 아까 Deployment에서 정한 공통 앱 이름으로!
+    app: a3028-zero-dtd-test  
+    
+    # [수정 포인트 2] 지금은 Blue(1.0.0)를 보여줄 차례!
+    version: "1.0.0"          
   ports:
   - protocol: TCP
     port: 8080
     targetPort: 8080
-  type: ClusterIP 
-  
+  type: ClusterIP
