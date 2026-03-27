@@ -15,7 +15,7 @@ spec:
         version: 2.0.0
     spec:
       containers:
-      - name: app
-        image: <유진님의 V2 이미지 주소> # 아까 물결표(~~) 나오는 그 이미지!
+      - name: a3028-app
+        image: amdp-registry.skala-ai.com/skala26a-ai1/a3028-my-app:v2
         ports:
         - containerPort: 8080
